@@ -1,0 +1,12 @@
+#!/bin/bash
+state=$(rfkill | awk '/^ 0/ {print $4}')
+if [ $state == "blocked" ]; then
+    echo "<span color='#ff0000'></span>"
+else
+    state=$(cat /sys/class/net/wlp3s0/operstate)
+    if [ $state == "up" ]; then
+        echo "<span color='#00ff00'></span>"
+    else
+        echo "<span color='#ff0000'></span>"
+    fi
+fi

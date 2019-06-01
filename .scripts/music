@@ -1,0 +1,11 @@
+#!/bin/bash
+status=$(cmus-remote -Q | awk '/^status/ {print $2}')
+if [ -z  $status ]; then
+    echo "<span color='#fb4934'> Not Running!</span>"
+elif [ $status == stopped ]; then
+    echo "<span color='#fb4934'> Stopped</span>"
+elif [ $status == playing ]; then
+    echo "<span color='#b8bb26'> $(cmus-remote -Q | awk '/^tag title/' | cut -d' ' -f3- | sed -e 's/&/&amp;/g')</span>"
+else
+    echo "<span color='#ebdbb2'> $(cmus-remote -Q | awk '/^tag title/' | cut -d' ' -f3- | sed -e 's/&/&amp;/g')</span>"
+fi

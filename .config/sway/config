@@ -1,0 +1,190 @@
+#vim: ft = cfg
+
+############################# SETTING-UP VARIABLES ###############################
+
+# Binding $mod to Alt
+set $mod Mod1
+
+# Binding navigation keys
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Setting default terminal
+set $term alacritty
+
+# Setting default launcher
+set $menu dmenu_run
+
+# default font
+font pango:FuraCode Nerd Font 11
+
+################################# OUTPUT #################################
+
+# Setting background
+output * bg ~/Pictures/backgrounds/martin_golding.png fill
+
+# Touchpad configuration
+input "1739:52545:SYNA7DB5:00_06CB:CD41_Touchpad" {
+    dwt enabled
+    tap enabled
+    pointer_accel 0.4
+    middle_emulation enabled
+}
+
+# Setting Num_lock on startup
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_numlock enabled
+}
+
+############################### STATUS BAR ###################################
+
+bar {
+    position top
+    height 18
+    tray_output none
+    pango_markup enabled
+    status_command while true; do status_pango; done
+    colors {
+        background #272822cc
+        inactive_workspace #272822cc #272822cc #ccccccff
+        focused_workspace #ccccccff #ccccccff #272822ff
+    }
+}
+
+#################################### KEYBINDINGS ######################################
+
+# start a terminal
+bindsym $mod+Shift+Return exec $term
+
+# kill focused window
+bindsym $mod+Shift+c kill
+
+# start your launcher
+bindsym $mod+p exec $menu
+
+# $mod key to move and resize floating windows
+floating_modifier $mod normal
+
+# reload the configuration file
+bindsym $mod+Shift+r reload
+
+# exit sway
+bindsym $mod+Shift+q exec swaymsg exit
+
+# Moving window focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# Moving window with focus
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Switching workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+
+# Move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+
+# Layouts
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switching between layouts
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focused window fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# move focus to the parent container
+bindsym $mod+a focus parent
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Cycle through windows currently in scratchpad
+bindsym $mod+minus scratchpad show
+
+# Resizing windows
+bindsym Control+Shift+$left resize shrink width 10px
+bindsym Control+Shift+$up resize grow height 10px
+bindsym Control+Shift+$down resize shrink height 10px
+bindsym Control+Shift+$right resize grow width 10px
+
+################################# USER-DEFINED KEYBINDINGS ######################################
+
+# Multimedia keys
+bindsym Xf86AudioPlay exec --no-startup-id cmus-remote -u
+bindsym Xf86AudioPrev exec --no-startup-id cmus-remote -r
+bindsym Xf86AudioNext exec --no-startup-id cmus-remote -n
+bindsym Xf86AudioStop exec --no-startup-id cmus-remote -s
+bindsym Xf86MonBrightnessUp exec --no-startup-id sudo brightness inc 5%+
+bindsym Xf86MonBrightnessDown exec --no-startup-id sudo brightness dec 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
+
+# Spawning processes
+bindsym $mod+Control+s exec env GDK_BACKEND=x11 surf file:///home/gaurav/.config/homepage/home.htm
+bindsym $mod+Control+t exec apulse ~/.tor-browser-en-us/app/Browser/start-tor-browser
+bindsym Print exec --no-startup-id ~/.scripts/shot
+bindsym $mod+Control+m exec $term --class cmus -e cmus
+bindsym $mod+Control+n exec $term -e nnn
+bindsym Shift+Control+e exec --no-startup-id ~/.scripts/dmenu_emoji
+bindsym $mod+Shift+m exec --no-startup-id ~/.scripts/dmenu_mount
+bindsym Shift+Control+w exec --no-startup-id ~/.scripts/wifi
+
+################################ AUTOSTART ############################
+
+exec mako
+exec redshift -l 26:80 -t 4500:3500 -m wayland
+exec sudo cpupower frequency-set -u 0.8GHz
+exec sudo rfkill block bluetooth
+exec sudo rfkill block wlan
+
+################################# WINDOW-RELATED CONFIG #####################################
+
+# Window borders
+default_border none
+for_window [class = "^.*"] border none
+for_window [class = "Surf"] border normal
+for_window [class = "Tor Browser"] floating enable
+for_window [app_id = "cmus"] move scratchpad
+
+# Specific workspaces for specific windows
+assign [class = "Tor Browser"] 9
+
+########################################### GAPS #########################################
+
+gaps inner 5
+gaps outer 5
+smart_gaps on

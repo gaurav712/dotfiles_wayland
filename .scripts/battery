@@ -1,0 +1,21 @@
+#!/bin/bash
+capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+status=$(cat /sys/class/power_supply/BAT1/status)
+
+if [ $status == "Charging" ]; then
+    echo "<span color='#00ff00'> $capacity%</span>"
+elif [ $status == "Full" ]; then
+    echo "<span color='#ffffff'> $capacity%</span>"
+else
+    if [ $capacity -le 20 ]; then
+        echo "<span color='#ff0000'> $capacity%</span>"
+    elif [ $capacity -le 40 ]; then
+        echo "<span color='#ffa500'> $capacity%</span>"
+    elif [ $capacity -le 60 ]; then
+        echo "<span color='#0000ff'> $capacity%</span>"
+    elif [ $capacity -le 80 ]; then
+        echo "<span color='#00ff00'> $capacity%</span>"
+    else
+        echo "<span color='#ffffff'> $capacity%</span>"
+    fi
+fi

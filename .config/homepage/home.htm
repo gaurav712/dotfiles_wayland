@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Homepage</title>
+		<style>
+			.button {
+				background-color: #808080;
+				dispay: inline-block;
+				font-size: 20px;
+				padding: 10px 15px;
+				border: none;
+			}
+			input[type=text] {
+				width: 30%;
+				background-color: #808080;
+				border: none;
+				padding: 10px 15px;
+				margin: 8px 0;
+				font-size: 20px;
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+
+	<body bgcolor="#1d2021"><br><br>
+        <basefont face="Inconsolata Nerd Font"/>
+		<center>
+			<form>
+				<input type="text" onkeypress="return runScript(event)" id="query"/> <button id="button" type="button" class="button" onclick="openInDuck()">Search</button><br><br>
+			</form>
+			<script>
+				function runScript(e) {
+					if (e.keyCode == 13) {
+						openInDuck();
+						return false;
+					}
+				}
+				function openInDuck () {
+					var x="https://duckduckgo.com/?q=";
+					x += document.getElementById("query").value;
+					window.location.href = x;
+				}
+			</script>
+			<p id="demo"></p>
+			<a href="https://gitlab.com/gaurav712"><img src="/home/gaurav/.config/homepage/gitlab.png" hspace="20" vspace="20" alt="GitLab"/></a>
+			<a href="https://mail.protonmail.com"><img src="/home/gaurav/.config/homepage/protonmail.png" hspace="20" vspace="20" alt="ProtonMail"/></a>
+			<a href="https://stackoverflow.com"><img src="/home/gaurav/.config/homepage/stackoverflow.png" hspace="20" vspace="20" alt="StackOverflow"/></a>
+            <a href="https://forums.gentoo.org"><img src="/home/gaurav/.config/homepage/gentoo.png" hspace="20" vspace="20" alt="GitHub"/></a> <br>
+			<a href="https://www.youtube.com"><img src="/home/gaurav/.config/homepage/youtube.png" hspace="20" vspace="20" alt="YouTube"/></a>
+			<a href="https://www.irctc.co.in/nget/train-search"><img src="/home/gaurav/.config/homepage/irctc.png" hspace="20" vspace="20" alt="IRCTC"/></a>
+			<a href="https://www.reddit.com"><img src="/home/gaurav/.config/homepage/reddit.png" hspace="20" vspace="20" alt="GitHub"/></a>
+		</center>
+	</body>
+
+</html>
+

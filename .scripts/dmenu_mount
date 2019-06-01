@@ -1,0 +1,81 @@
+#!/bin/bash
+function analyze_drives {
+    list=""
+    number=1
+    letter=62 && # Hex value representing ASCII 'b'
+    while [[ $letter -le 65 ]]; do
+        num_of_matches=$(lsblk | grep -c "sd$(printf "\x$letter")")
+        if [[ $num_of_matches == 1 ]]; then
+            list="$list$(lsblk | grep "sd$(printf "\x$letter")" | awk '{print $1,$4}')\n"
+        fi
+        if [[ $num_of_matches -gt 1 ]]; then
+            while [[ $number -le 5 ]]; do
+                list="$list$(lsblk | grep "sd$(printf "\x$letter")$number" | cut -b7- | awk '{print $1,$4}')\n"
+                number=$(echo $[ $number + 1 ])
+            done
+        fi
+        number=1
+        letter=$(echo $[ $letter + 1 ])
+    done
+    [[ -z $list ]] && notify-send ":( No devices detected!" && exit 1
+    list=$(printf "$list" | sed '/^[[:space:]]*$/d')
+}
+
+function mnt_drive {
+    drive=$(echo -e "$list" | dmenu -l 4)
+    [[ -z $drive ]] && notify-send "None Selected!" && exit 1
+    drive=$(echo "/dev/$drive" | awk '{print $1}')
+    msg=$(udevil mount "$drive") &&
+        notify-send "$msg"
+}
+
+function umnt_drive {
+    list=$(mount | grep "/dev/sd[b-z]" | awk '{print $1,$2,$3}')
+    [[ -z $list ]] && notify-send "Nothing to unmount" && exit 0
+    drive=$(echo "$list" | dmenu -l 4)
+    [[ -z $drive ]] && notify-send "None Selected!" && exit 1
+    drive=$(echo "$drive" | awk '{print $1}')
+    udevil umount "$drive" &&
+        notify-send "$drive unmounted"
+}
+
+function mnt_mtp {
+    msg=$(simple-mtpfs -l 2>&1 >/dev/null)
+    if [[ $msg == "No raw devices found." ]]; then
+        notify-send "$msg"
+    else
+        list=$(simple-mtpfs -l)
+        device=$(echo "$list" | dmenu -l 4)
+        [[ -z $device ]] && notify-send "None Selected!" && exit 1
+        device_id=$(echo "$device" | cut -d: -f1)
+        device=$(echo "$device" | awk '{print $2}')
+        mkdir "$device" &&
+            simple-mtpfs --device $device_id "$device" &&
+                notify-send "$device mounted at /home/gaurav/$device"
+    fi
+}
+
+function umnt_mtp {
+    list=$(mount | awk '/^simple-mtpfs/ {print $1,$2,$3}')
+    [[ -z $list ]] && notify-send "No MTP devices to unmount!" && exit 0
+    device=$(echo "$list" | dmenu -l 4)
+    [[ -z $device ]] && notify-send "None Selected!" && exit 1
+    device=$(echo "$device" | awk '{print $3}')
+    fusermount -u "$device" &&
+        notify-send "Device Unmounted" && rm -r "$device"
+}
+
+choice=$(echo -e "Mount_Drives\nUnmount_Drives\nMount_MTP_Device\nUnmount_MTP_Device" | dmenu -l 4)
+[[ -z $choice ]] && notify-send ":( No option selected!"
+if [[ $choice == "Mount_Drives" ]]; then
+    analyze_drives
+    mnt_drive
+elif [[ $choice == "Unmount_Drives" ]]; then
+    umnt_drive
+elif [[ $choice == "Mount_MTP_Device" ]]; then
+    mnt_mtp
+elif [[ $choice == "Unmount_MTP_Device" ]]; then
+    umnt_mtp
+fi
+exit 0
+

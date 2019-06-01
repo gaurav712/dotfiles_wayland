@@ -1,0 +1,16 @@
+#!/bin/bash
+
+while [ true ]; do
+    ch=$(cat /sys/class/power_supply/BAT1/status | cut -b1)
+    BAT_CAPACITY=$(cat /sys/class/power_supply/BAT1/capacity)
+    if [ $BAT_CAPACITY -lt 15 ] && [ $ch == "D" ]; then
+        notify-send -u critical "Battery level critical! Capacity less than 15%."
+    else
+        if [ $BAT_CAPACITY == 100 ]; then
+            notify-send "Battery is fully charged. Plug out adapter!"
+        elif [ $BAT_CAPACITY -lt 20  ] && [ $ch == "D" ]; then
+            notify-send "Battery low! Capacity less than 20%."
+        fi
+    fi
+    sleep 180
+done

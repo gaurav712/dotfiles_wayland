@@ -1,0 +1,21 @@
+#!/bin/bash
+mute=$(pactl list sinks | awk '/^.Mute/ {print $2}')
+if [ $mute == yes ]; then
+    echo "<span color='#ffffff'></span>"
+else
+    device=$(pactl list sinks | awk '/^.Active Port/ {print $3}')
+    level=$(pactl list sinks | awk '/^.Volume/ {print $5}' | cut -d% -f1)
+    if [ $device == "analog-output-headphones" ]; then
+        if [ $level -le 50 ]; then
+            echo "<span color='#00ff00'> $level%</span>"
+        else
+            echo "<span color='#ff0000'> $level%</span>"
+        fi
+    else
+        if [ $level -le 50 ]; then
+            echo "<span color='#00ff00'> $level%</span>"
+        else
+            echo "<span color='#ff0000'> $level%</span>"
+        fi
+    fi
+fi

@@ -1,0 +1,5 @@
+#!/bin/bash
+date=$(date '+%d-%m-%y_%H-%M-%S')
+grim ~/Pictures/Screenshots/$date.png
+[[ -f ~/Pictures/Screenshots/$date.png ]] && notify-send "📷 Screenshot Captured" && exit 0
+notify-send "⚠️ Something went wrong!" && exit 1

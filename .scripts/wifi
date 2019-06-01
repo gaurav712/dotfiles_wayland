@@ -1,0 +1,3 @@
+#!/bin/bash
+[[ $(rfkill | awk '/^\ 0/ {print $4}') == "unblocked" ]] && sudo rfkill block wlan || sudo rfkill unblock wlan
+exit 0

@@ -1,0 +1,7 @@
+#vim: ft = cfg
+font=Inconsolata Nerd Font 12
+background-color=#1d2021cc
+text-color=#ebdbb2ff
+border-color=#ebdbb2ff
+markup=0
+default-timeout=5000

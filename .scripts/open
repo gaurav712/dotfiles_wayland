@@ -1,0 +1,9 @@
+#!/bin/bash
+term=alacritty
+case $1 in
+    *.mkv|*.webm|*.mp4|*.avi) mpv "$1";;
+    *.epub|*.pdf|*.djvu) zathura "$1";;
+    *.c|*.cpp|*.h|*.C|*.H|*.txt|*.htm|*.html|*rc|*.conf|*.sh|*config|*.py) $term -e vim $1;;
+    *.jpg|*.jpeg|*.png|*.svg) imv "$1";;
+    *) notify-send "Can't find a way to open. Use open-with";;
+esac
