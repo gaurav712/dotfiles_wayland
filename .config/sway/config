@@ -23,15 +23,15 @@ font pango:FuraCode Nerd Font 11
 ################################# OUTPUT #################################
 
 # Setting background
-output * bg ~/Pictures/backgrounds/martin_golding.png fill
+output * bg ~/.config/wall.png fill
 
 # Touchpad configuration
-input "1739:52545:SYNA7DB5:00_06CB:CD41_Touchpad" {
-    dwt enabled
-    tap enabled
-    pointer_accel 0.4
-    middle_emulation enabled
-}
+#input "1739:52545:SYNA7DB5:00_06CB:CD41_Touchpad" {
+    #dwt enabled
+    #tap enabled
+    #pointer_accel 0.4
+    #middle_emulation enabled
+#}
 
 # Setting Num_lock on startup
 input "1:1:AT_Translated_Set_2_keyboard" {
@@ -44,8 +44,8 @@ bar {
     position top
     height 18
     tray_output none
-    pango_markup enabled
-    status_command while true; do status_pango; done
+    #pango_markup enabled
+    status_command while true; do status; sleep 0.5; done
     colors {
         background #272822cc
         inactive_workspace #272822cc #272822cc #ccccccff
@@ -165,17 +165,17 @@ bindsym Shift+Control+w exec --no-startup-id ~/.scripts/wifi
 
 ################################ AUTOSTART ############################
 
-exec mako
-exec redshift -l 26:80 -t 4500:3500 -m wayland
-exec sudo cpupower frequency-set -u 0.8GHz
-exec sudo rfkill block bluetooth
+#exec mako
+#exec redshift -l 26:80 -t 4500:3500 -m wayland
+#exec sudo cpupower frequency-set -u 0.8GHz
+#exec sudo rfkill block bluetooth
 exec sudo rfkill block wlan
 
 ################################# WINDOW-RELATED CONFIG #####################################
 
 # Window borders
 default_border none
-for_window [class = "^.*"] border none
+for_window [class = "^.*"] border 1
 for_window [class = "Surf"] border normal
 for_window [class = "Tor Browser"] floating enable
 for_window [app_id = "cmus"] move scratchpad
@@ -188,3 +188,4 @@ assign [class = "Tor Browser"] 9
 gaps inner 5
 gaps outer 5
 smart_gaps on
+

@@ -1,0 +1,82 @@
+{
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 0,
+  "modules-left": [
+    "clock",
+    "custom/weather",
+    "wlr/workspaces"
+  ],
+  "modules-center": ["hyprland/window"],
+  "modules-right": [
+    "custom/music",
+    "network",
+    "pulseaudio",
+    "pulseaudio#microphone"
+  ],
+
+  "hyprland/window": {
+    "format": "{}"
+  },
+  "wlr/workspaces": {
+    "active-only": false,
+    "all-outputs": true,
+    "on-click": "activate"
+  },
+  "custom/weather" : {
+    "tooltip" : true,
+    "format" : "{}",
+    "interval" : 30,
+    "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
+    "return-type" : "json"
+  },
+  "clock": {
+    "format": "{: %R    %d/%m}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "custom/music": {
+    "exec": "current-music",
+    "interval": 2,
+    "format": "{}",
+    "on-click": "music-notify"
+  },
+  "network": {
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "tooltip": false,
+    "format-muted": " Muted",
+    "on-click": "pamixer -t",
+    "on-scroll-up": "pamixer -i 5",
+    "on-scroll-down": "pamixer -d 5",
+    "scroll-step": 5,
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    }
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": " Muted",
+    "on-click": "pamixer --default-source -t",
+    "on-scroll-up": "pamixer --default-source -i 5",
+    "on-scroll-down": "pamixer --default-source -d 5",
+    "scroll-step": 5
+  }
+}

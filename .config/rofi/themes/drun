@@ -1,0 +1,134 @@
+configuration {
+    font: "BlexMono Nerd Font Medium 10";
+    show-icons: true;
+    icon-theme: "Papirus";
+    fullscreen: false;
+    threads: 0;
+    matching: "fuzzy";
+    scroll-method: 0;
+    monitor: "primary";
+}
+
+* {
+    font: "BlexMono Nerd Font Medium 12";
+    transparent: #00000000;
+    foreground: #EBDBB2FF;
+    background: #28282830;
+    foreground-light: #A89984;
+    background-light: #404040EE;
+    background-active: #303030AA;
+}
+
+window {
+    transparency: "real";
+    background-color: @background;
+    text-color: @foreground;
+    height: 50%;
+    width: 40%;
+}
+
+button {
+    action: "ok";
+    str: " ";
+    expand: false;
+    text-color: @foreground;
+    background-color: @transparent;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+entry {
+    font: @font;
+    background-color: @transparent;
+    text-color: @foreground;
+    expand: true;
+    vertical-align: 0.5;
+    horizontal-align: 0;
+    placeholder: "Select Program";
+    placeholder-color: @foreground-light;
+    blink: true;
+}
+
+entry-wrapper {
+    orientation: horizontal;
+    margin: 0 12px 0 12px;
+    spacing: 24px;
+    vertical-align: 0.5;
+    background-color: @transparent;
+    children: [ button, entry ];
+}
+
+inputbar {
+    padding: 10px;
+    margin: 10px 10px 14px 10px;
+    background-color: @background-light;
+    text-color: @foreground;
+    expand: false;
+    border-radius: 10px;
+    position: north;
+    children: [ entry-wrapper ];
+}
+
+listview {
+    background-color: @transparent;
+    spacing: 0;
+    cycle: true;
+    dynamic: true;
+    scrollbar: true;
+}
+
+mainbox {
+    expand: true;
+    spacing: 12px;
+    padding: 5px;
+    background-color: @background;
+    children: [ inputbar, listview ];
+}
+
+scrollbar {
+    background-color: @transparent;
+    handle-width: 0;
+}
+
+element {
+    background-color: @transparent;
+    text-color: @foreground;
+    orientation: horizontal;
+    border: 0;
+    border-color: @background;
+    border-radius: 6px;
+    spacing: 24px;
+    margin: 0px 12px 0px 12px;
+    padding: 10px 24px 10px 24px;
+}
+
+element-icon {
+    size: 28px;
+    border: 0;
+    border-color: @transparent;
+    background-color: @transparent;
+}
+
+element-text {
+    font: "BlexMono Nerd Font Medium 11";
+    expand: true;
+    horizontal-align: 0;
+    vertical-align: 0.5;
+    color: @foreground;
+    background-color: @transparent;
+}
+
+element normal {
+    background-color: @transparent;
+    text-color: @foreground;
+}
+
+element selected {
+    background-color: @background-active;
+    text-color: @foreground;
+}
+
+element selected.active {
+    background-color: @background-active;
+    color: @foreground;
+}

@@ -1,0 +1,73 @@
+* {
+  border: none;
+  border-radius: 10px;
+  font-family: BlexMono Nerd Font;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#clock,
+#custom-weather,
+#custom-music,
+#workspaces,
+#window,
+#network,
+#pulseaudio {
+  background-color: #1d2021;
+  padding: 2.5px 10px;
+  margin: 0 5px;
+  margin-top: 10px;
+}
+
+window#waybar {
+  background-color: rgba(0, 0, 0, 0);
+  color: #ebdbb2;
+}
+
+tooltip {
+  background: rgba(40, 40, 40, 180);
+  border-radius: 10px;
+}
+
+#workspaces button {
+  padding: 0 4px;
+  font-size: 10px;
+  border-radius: 50%;
+  color: #a89984;
+  margin-right: 5px;
+  background-color: #404040;
+}
+
+#workspaces button.active {
+  color: #1d2021;
+  background-color: #ebdbb2;
+}
+
+#workspaces {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+}
+
+#window {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+#clock {
+  color: #fab387;
+  margin-left: 20px;
+}
+
+#network {
+  color: #f9e2af;
+  padding-right: 15px;
+}
+
+#pulseaudio {
+  color: #89b4fa;
+}
+
+#pulseaudio.microphone {
+  color: #cba6f7;
+  margin-right: 20px;
+}
